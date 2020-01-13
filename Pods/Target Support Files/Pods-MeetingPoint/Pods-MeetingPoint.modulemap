@@ -1,0 +1,6 @@
+framework module Pods_MeetingPoint {
+  umbrella header "Pods-MeetingPoint-umbrella.h"
+
+  export *
+  module * { export * }
+}
