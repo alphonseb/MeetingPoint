@@ -13,7 +13,6 @@ class UserCell: UITableViewCell {
     
     var user: [String:AnyObject]! {
         didSet {
-            print(user)
             nameLabel.text = user["name"] as? String
         }
     }

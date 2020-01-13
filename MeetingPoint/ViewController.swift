@@ -29,12 +29,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         sessionRef.childByAutoId().setValue([
             "name": "Alphonse",
+            "id": generateShortCode(length: 10),
             "lat": 0.5,
             "lon": 42
             ])
         
         sessionRef.childByAutoId().setValue([
             "name": "Manon",
+            "id": generateShortCode(length: 10),
             "lat": 0.5,
             "lon": 45
             ])
@@ -44,31 +46,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        }
         dbHandle = sessionRef.observe(.childAdded, with: { (snapshot) in
             let newChild = snapshot.value as? [String : AnyObject] ?? [:]
-            print(newChild)
-//            let name = newChild["name"] as? String
+            
             self.users.append(newChild)
             self.UsersTable.reloadData()
-//            if let child = newChild {
-//                self.users.append(child)
-//
-//                self.UsersTable.reloadData()
-//            }
-//            self.newName.text = newChild["name"] as? String
-            // ...
         })
         
-//        sessionRef.observe(.childRemoved, with: { (snapshot) in
-//            let newChild = snapshot.value as? [String : AnyObject] ?? [:]
-//
-//            let name = newChild["name"] as? String
-//
-//            if let userName = name {
-//                self.users = self.users.filter { $0 == userName }
-//                self.UsersTable.reloadData()
-//            }
-//            //            self.newName.text = newChild["name"] as? String
-//            // ...
-//        })
+        sessionRef.observe(.childRemoved, with: { (snapshot) in
+            let newChild = snapshot.value as? [String : AnyObject] ?? [:]
+
+            self.users = self.users.filter { $0["id"] as? String != newChild["id"] as? String }
+            self.UsersTable.reloadData()
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -15,6 +15,7 @@
 		80B5256D23CC882500639888 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80B5256B23CC882500639888 /* LaunchScreen.storyboard */; };
 		80B5257523CC8A8500639888 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80B5257423CC8A8500639888 /* GoogleService-Info.plist */; };
 		80B5257723CCB6C900639888 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5257623CCB6C900639888 /* UserCell.swift */; };
+		80B5257923CCCE0B00639888 /* JoinSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5257823CCCE0B00639888 /* JoinSessionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		80B5256E23CC882500639888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		80B5257423CC8A8500639888 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		80B5257623CCB6C900639888 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		80B5257823CCCE0B00639888 /* JoinSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewController.swift; sourceTree = "<group>"; };
 		B11946C5A04B125F8B636EBF /* Pods-MeetingPoint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeetingPoint.debug.xcconfig"; path = "Target Support Files/Pods-MeetingPoint/Pods-MeetingPoint.debug.xcconfig"; sourceTree = "<group>"; };
 		B46CD5BB9F3DC3D11399EA93 /* Pods-MeetingPoint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeetingPoint.release.xcconfig"; path = "Target Support Files/Pods-MeetingPoint/Pods-MeetingPoint.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 				80B5256E23CC882500639888 /* Info.plist */,
 				80B5257423CC8A8500639888 /* GoogleService-Info.plist */,
 				80B5257623CCB6C900639888 /* UserCell.swift */,
+				80B5257823CCCE0B00639888 /* JoinSessionViewController.swift */,
 			);
 			path = MeetingPoint;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80B5256523CC882400639888 /* ViewController.swift in Sources */,
+				80B5257923CCCE0B00639888 /* JoinSessionViewController.swift in Sources */,
 				80B5256323CC882400639888 /* AppDelegate.swift in Sources */,
 				80B5257723CCB6C900639888 /* UserCell.swift in Sources */,
 			);
