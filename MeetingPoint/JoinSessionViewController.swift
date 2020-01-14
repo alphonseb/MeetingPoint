@@ -8,18 +8,68 @@
 
 import UIKit
 import FirebaseDatabase
+import CoreLocation
 
 class JoinSessionViewController: UIViewController {
     @IBOutlet weak var NameField: UITextField!
     @IBOutlet weak var SessionField: UITextField!
     
+    lazy var locationManager = CLLocationManager()
+    
     var ref: DatabaseReference!
+    var coordinates: CLLocationCoordinate2D!
+    var sessionRef: DatabaseReference!
+    var userRef: DatabaseReference!
+    var userId: String!
+    var kickAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
+        userId = self.generateShortCode(length: 10)
+        
+        locationManager.delegate = self
+        
+        kickAlert = UIAlertController(title: "Kick", message: "Le créateur de la session ne vous a pas accepté", preferredStyle: .alert)
+        
+        kickAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action:UIAlertAction) in
+            if let homeView = self.storyboard?.instantiateViewController(withIdentifier: "home") as? HomeViewController {
+                self.navigationController?.pushViewController(homeView, animated: true)
+            }
+        }))
+        
+        // Vérifier la permission
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.requestLocation() // On demande à récupérer une seule position
+            
+            //locationManager.startUpdatingLocaiton() // Pour récupérer plusieurs postion
+        } else {
+            locationManager.requestWhenInUseAuthorization() // pop-up
+        }
+        
+        sessionRef.observe(.childRemoved) { (snapshot) in
+            let removedUser = snapshot.value as? [String:AnyObject] ?? [:]
+            if (removedUser["id"] as? String == self.userId) {
+                
+            }
+        }
+        
+        userRef.observe(.childAdded) { (snapshot) in
+            if (snapshot.key == "accepted") {
+                let value = snapshot.value as? Bool
+                if let accepted = value {
+                    if (accepted) {
+                        print("accepted by session creator")
+                    }
+                }
+            }
+        }
         
         // Do any additional setup after loading the view.
+    }
+    
+    func setCoordinates(_ coordinates: CLLocationCoordinate2D) {
+        self.coordinates = coordinates
     }
     
     func generateShortCode(length: Int) -> String {
@@ -37,14 +87,17 @@ class JoinSessionViewController: UIViewController {
     
     @IBAction func join(_ sender: Any) {
         if let session = SessionField.text {
-            let sessionRef = ref.child(session)
+            self.sessionRef = ref.child(session)
+            self.userRef = sessionRef.childByAutoId()
             
             if let name = NameField.text {
-                sessionRef.childByAutoId().setValue([
+                self.userRef.setValue([
                     "name": name,
-                    "id": generateShortCode(length: 10),
-                    "lat": 0.5,
-                    "lon": 42
+                    "id": self.userId,
+                    "coordinates": [
+                        "lat": self.coordinates.latitude,
+                        "lon": self.coordinates.longitude
+                    ]
                     ])
             }
         }
@@ -60,4 +113,27 @@ class JoinSessionViewController: UIViewController {
     }
     */
 
+}
+
+extension JoinSessionViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            // L'utilisateur vient d'autoriser la loc
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            let coordinate = location.coordinate
+            
+            self.setCoordinates(coordinate)
+            
+            print("latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("didFailWithError: \(error)")
+    }
 }
