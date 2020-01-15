@@ -12,15 +12,15 @@ import SwiftyJSON
 
 class PointsService {
     
-    typealias PointsCompletionHandler = ([Point]) -> ()
+    typealias PointsCompletionHandler = (LocationResult) -> ()
     
     func getPoints (completionHandler: @escaping PointsCompletionHandler) {
         AF.request("https://app.alphonsebouy.fr/meeteasy", method: .post, parameters: ["lol": "haha"], encoder: JSONParameterEncoder.default).response { (response) in
             let json = JSON(response.data)
-            var points = [Point]()
+            var result = LocationResult()
             print(json["haha"])
             
-            completionHandler(points)
+            completionHandler(result)
         }
     }
 }

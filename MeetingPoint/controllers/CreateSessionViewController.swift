@@ -26,6 +26,13 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
     var requestAlert: UIAlertController!
     var newJoiner: [String:AnyObject]!
     var newJoinerRef: DatabaseReference!
+    var sessionRef: DatabaseReference!
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if (self.isMovingFromParent) {
+            self.sessionRef.removeValue()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,9 +72,9 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
             //        ref.childByAutoId().setValue("Alphonse")
             let shortCode = generateShortCode(length: 5)
             myLabel.text = shortCode
-            let sessionRef = ref.child(shortCode)
+            self.sessionRef = ref.child(shortCode)
             
-            sessionRef.childByAutoId().setValue([
+            self.sessionRef.childByAutoId().setValue([
                 "name": userName!,
                 "id": userId!,
                 "coordinates": [
@@ -80,7 +87,7 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
             //            let name = snapshot.value as? String
             //            self.myLabel.text = name
             //        }
-            dbHandle = sessionRef.observe(.childAdded, with: { (snapshot) in
+            dbHandle = self.sessionRef.observe(.childAdded, with: { (snapshot) in
                 let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 
                 
@@ -96,7 +103,7 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
                 
             })
             
-            sessionRef.observe(.childRemoved, with: { (snapshot) in
+            self.sessionRef.observe(.childRemoved, with: { (snapshot) in
                 let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 
                 Store.users = Store.users.filter { $0["id"] as? String != newChild["id"] as? String }
@@ -135,7 +142,21 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
         return result
     }
 
-
+    @IBAction func launchSearch(_ sender: Any) {
+        self.sessionRef.child("started").setValue(true)
+        
+        if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
+            
+            self.navigationController?.present(loaderView, animated: true, completion: {
+                if let mapView = self.storyboard?.instantiateViewController(withIdentifier: "resultMap") as? ResultMapViewController {
+                    
+                    self.navigationController?.pushViewController(mapView, animated: true)
+                    
+                }
+            })
+        }
+    }
+    
 }
 
 extension CreateSessionViewController: CLLocationManagerDelegate {
