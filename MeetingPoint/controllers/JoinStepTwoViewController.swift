@@ -29,6 +29,23 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
             let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 self.addToUsers(newChild)
         })
+        
+        sessionRef.child("started").observe(.value) { (snapshot) in
+            if (snapshot.exists()) {
+                if (snapshot.value as? Bool ?? false) {
+                    if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
+                        
+                        self.navigationController?.present(loaderView, animated: true, completion: {
+                            if let mapView = self.storyboard?.instantiateViewController(withIdentifier: "resultMap") as? ResultMapViewController {
+                                
+                                self.navigationController?.pushViewController(mapView, animated: true)
+                                
+                            }
+                        })
+                    }
+                }
+            }
+        }
     }
     
     func addToUsers (_ user: [String:AnyObject]) {

@@ -8,6 +8,7 @@
 
 import Foundation
 
-class Point {
+class LocationResult {
     var name: String!
+    var nearbyPoints: [NearbyPoint]!
 }

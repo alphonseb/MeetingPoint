@@ -26,6 +26,7 @@ class JoinSessionViewController: UIViewController {
     var userId: String!
     var kickAlert: UIAlertController!
     var emptyAlert: UIAlertController!
+    var noSessionAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,14 @@ class JoinSessionViewController: UIViewController {
         emptyAlert = UIAlertController(title: "Attention", message: "Vous devez saisir obligatoirement votre prénom et le numéro de la session", preferredStyle: .alert)
         
         emptyAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action:UIAlertAction) -> Void in
+        }))
+        
+        noSessionAlert = UIAlertController(title: "Session inconnue", message: "Cette session n'existe pas, vérifiez votre code de session et réessayez", preferredStyle: .alert)
+        
+        noSessionAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action:UIAlertAction) -> Void in
+            self.joiningLabel.isHidden = true
+            self.joinButton.isHidden = false
+            self.loader.stopAnimating()
         }))
         
         kickAlert = UIAlertController(title: "Kick", message: "Le créateur de la session ne vous a pas accepté", preferredStyle: .alert)
@@ -92,38 +101,49 @@ class JoinSessionViewController: UIViewController {
             loader.startAnimating()
             if let session = SessionField.text {
                 self.sessionRef = ref.child(session)
-                self.userRef = sessionRef.childByAutoId()
                 
-                if let name = NameField.text {
-                    self.userRef.setValue([
-                        "name": name,
-                        "id": self.userId!,
-                        "coordinates": [
-                            "lat": self.coordinates.latitude,
-                            "lon": self.coordinates.longitude
-                        ]
-                        ])
-                }
-                
-                sessionRef.observe(.childRemoved) { (snapshot) in
-                    let removedUser = snapshot.value as? [String:AnyObject] ?? [:]
-                    if (removedUser["id"] as? String == self.userId) {
-                        self.present(self.kickAlert, animated: true, completion: nil)
+                self.sessionRef.observeSingleEvent(of: .value) { (snapshot) in
+                    if (!snapshot.exists()) {
+                        self.present(self.noSessionAlert, animated: true, completion: nil)
+                    } else {
+                        self.addUser(session)
                     }
                 }
-                
-                userRef.observe(.childAdded) { (snapshot) in
-                    if (snapshot.key == "accepted") {
-                        let value = snapshot.value as? Bool
-                        if let accepted = value {
-                            if (accepted) {
-                                if let joinStepTwoView = self.storyboard?.instantiateViewController(withIdentifier: "joinStepTwo") as? JoinStepTwoViewController {
-                                    
-                                        joinStepTwoView.sessionRef = self.sessionRef
-                                        joinStepTwoView.sessionCode = session
-                                    self.navigationController?.pushViewController(joinStepTwoView, animated: true)
-                                }
-                            }
+            }
+        }
+    }
+    
+    func addUser (_ session: String) {
+        self.userRef = self.sessionRef.childByAutoId()
+        
+        if let name = NameField.text {
+            self.userRef.setValue([
+                "name": name,
+                "id": self.userId!,
+                "coordinates": [
+                    "lat": self.coordinates.latitude,
+                    "lon": self.coordinates.longitude
+                ]
+                ])
+        }
+        
+        sessionRef.observe(.childRemoved) { (snapshot) in
+            let removedUser = snapshot.value as? [String:AnyObject] ?? [:]
+            if (removedUser["id"] as? String == self.userId) {
+                self.present(self.kickAlert, animated: true, completion: nil)
+            }
+        }
+        
+        userRef.observe(.childAdded) { (snapshot) in
+            if (snapshot.key == "accepted") {
+                let value = snapshot.value as? Bool
+                if let accepted = value {
+                    if (accepted) {
+                        if let joinStepTwoView = self.storyboard?.instantiateViewController(withIdentifier: "joinStepTwo") as? JoinStepTwoViewController {
+                            
+                            joinStepTwoView.sessionRef = self.sessionRef
+                            joinStepTwoView.sessionCode = session
+                            self.navigationController?.pushViewController(joinStepTwoView, animated: true)
                         }
                     }
                 }
@@ -156,8 +176,6 @@ extension JoinSessionViewController: CLLocationManagerDelegate {
             let coordinate = location.coordinate
             
             self.setCoordinates(coordinate)
-            
-            print("latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)")
         }
     }
     
