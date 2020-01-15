@@ -31,6 +31,12 @@ class CreateStepOneViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Store.users = []
+    }
+    
     @IBAction func startSession(_ sender: Any) {
         if (nameField.text == "") {
             self.present(emptyAlert, animated: true, completion: nil)
