@@ -15,7 +15,6 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var newName: UILabel!
     @IBOutlet weak var UsersTable: UITableView!
     
-    var sessionRef: DatabaseReference!
     var sessionCode: String!
     var dbHandle: DatabaseHandle!
     
@@ -25,12 +24,25 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
         // Demander les permissions
         myLabel.text = sessionCode
         
-        dbHandle = sessionRef.observe(.childAdded, with: { (snapshot) in
+        dbHandle = Store.sessionRef.observe(.childAdded, with: { (snapshot) in
             let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 self.addToUsers(newChild)
+            if (!(newChild["isOrganizer"] as? Bool ?? false)) {
+                Store.event.otherMembers.append(newChild["name"] as? String ?? "Anonymous")
+            }
         })
         
-        sessionRef.child("started").observe(.value) { (snapshot) in
+        Store.sessionRef.child("event").observeSingleEvent(of: .value) { (snapshot) in
+            if (snapshot.exists()) {
+                let sessionEvent = snapshot.value as? [String:AnyObject] ?? [:]
+                Store.event = Event()
+                Store.event.date = sessionEvent["date"] as? Double
+                Store.event.description = sessionEvent["description"] as? String
+                Store.event.organizerName = sessionEvent["organizerName"] as? String
+            }
+        }
+        
+        Store.sessionRef.child("started").observe(.value) { (snapshot) in
             if (snapshot.exists()) {
                 if (snapshot.value as? Bool ?? false) {
                     if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {

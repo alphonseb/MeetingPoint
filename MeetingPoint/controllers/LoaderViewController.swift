@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
 class LoaderViewController: UIViewController {
+    
+    var ref: DatabaseReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+        
+        Store.sessionRef.observe(.childAdded) { (snapshot) in
+            if (snapshot.exists()) {
+                print(snapshot.value)
+            }
+        }
         
         // Listen to DB Changes
         let seconds = 2.0

@@ -11,6 +11,7 @@ import CoreLocation
 
 class NearbyPoint {
     var name: String!
+    var imageUrl: URL!
     var coordinate: CLLocationCoordinate2D!
     var description: String!
     var infos: [String]!

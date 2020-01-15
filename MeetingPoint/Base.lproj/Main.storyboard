@@ -409,6 +409,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sH5-2B-i1K">
                                 <rect key="frame" x="158.5" y="801" width="97" height="30"/>
                                 <state key="normal" title="Choisir ce lieu"/>
+                                <connections>
+                                    <action selector="choosePlace:" destination="aOh-bZ-tD8" eventType="touchUpInside" id="rcJ-Hz-rBe"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TXw-gu-gCU">
                                 <rect key="frame" x="15" y="384" width="379" height="358"/>
@@ -495,6 +498,7 @@
                         <viewLayoutGuide key="safeArea" id="6FW-72-DE5"/>
                     </view>
                     <connections>
+                        <outlet property="saveButton" destination="sH5-2B-i1K" id="5fN-rn-eWc"/>
                         <outlet property="titleLabel" destination="XSA-VZ-WO5" id="PN6-RC-6m7"/>
                     </connections>
                 </viewController>

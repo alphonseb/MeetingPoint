@@ -19,9 +19,24 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
     var nearbyResults = [NearbyPoint]()
     var stationAnnotation: MKPointAnnotation!
     var nearbyPointsAnnotations = [MKAnnotation]()
+    var choiceAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !Store.isOrganizer {
+            choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait !", preferredStyle: .alert)
+            
+            choiceAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                // Send to completion View
+            }))
+            let choiceListener = ChoiceListener()
+            choiceListener.listen { (finished) in
+                if (finished) {
+                    self.present(self.choiceAlert, animated: true, completion: nil)
+                }
+            }
+        }
         
         self.tableView.separatorStyle = .none
         

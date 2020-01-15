@@ -19,6 +19,7 @@ class HomeViewController: UIViewController {
         super.viewDidAppear(animated)
         
         Store.users = []
+        Store.isOrganizer = false
     }
     
     override func viewDidLoad() {

@@ -22,15 +22,14 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
     var sessionStarted = false
     var userName: String!
     var userId: String!
-    var date: Date!
     var requestAlert: UIAlertController!
+    var confirmAlert: UIAlertController!
     var newJoiner: [String:AnyObject]!
     var newJoinerRef: DatabaseReference!
-    var sessionRef: DatabaseReference!
     
     override func viewWillDisappear(_ animated: Bool) {
         if (self.isMovingFromParent) {
-            self.sessionRef.removeValue()
+            Store.sessionRef.removeValue()
         }
     }
 
@@ -40,6 +39,8 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
         // Demander les permissions
         locationManager.delegate = self
         
+        Store.isOrganizer = true
+        
         userId = generateShortCode(length: 10)
         
         requestAlert = UIAlertController(title: "Demande d'ajout", message: "", preferredStyle: .alert)
@@ -47,6 +48,9 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
         requestAlert.addAction(UIAlertAction(title: "Ajouter", style: .default, handler: {(action:UIAlertAction) in
             self.newJoinerRef.child("accepted").setValue(true)
             self.addToUsers(self.newJoiner)
+            Store.event.otherMembers.append(
+                self.newJoiner["name"] as? String ?? "Anonymous"
+            )
         }))
         
         requestAlert.addAction(UIAlertAction(title: "Refuser", style: .destructive, handler: {(action:UIAlertAction) in
@@ -54,6 +58,16 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
                 
                 print(error)
             }
+        }))
+        
+        confirmAlert = UIAlertController(title: "Tout le monde est là ?", message: "Souhaitez-vous lancer la recherche ?", preferredStyle: .alert)
+        
+        confirmAlert.addAction(UIAlertAction(title: "Rechercher", style: .default, handler: {(action:UIAlertAction) in
+           // Lancer
+            self.startSearch()
+        }))
+        
+        confirmAlert.addAction(UIAlertAction(title: "Attendre", style: .cancel, handler: {(action:UIAlertAction) in
         }))
         
             // Vérifier la permission
@@ -72,24 +86,35 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
             //        ref.childByAutoId().setValue("Alphonse")
             let shortCode = generateShortCode(length: 5)
             myLabel.text = shortCode
-            self.sessionRef = ref.child(shortCode)
+            Store.sessionRef = ref.child(shortCode)
             
-            self.sessionRef.childByAutoId().setValue([
+            Store.sessionRef.childByAutoId().setValue([
                 "name": userName!,
+                "isOrganizer": true,
                 "id": userId!,
                 "coordinates": [
                     "lat": coordinate.latitude,
                     "lon": coordinate.longitude
                 ]
                 ])
+            
+            
+            Store.sessionRef.child("event").setValue([
+                "date": Store.event.date!,
+                "description": Store.event.description!,
+                "organizerName": Store.event.organizerName!
+                ])
             self.sessionStarted = true
             //        ref.child("someid/name").observeSingleEvent(of: .value) { (snapshot) in
             //            let name = snapshot.value as? String
             //            self.myLabel.text = name
             //        }
-            dbHandle = self.sessionRef.observe(.childAdded, with: { (snapshot) in
+            dbHandle = Store.sessionRef.observe(.childAdded, with: { (snapshot) in
                 let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 
+                if (snapshot.key == "event") {
+                    return
+                }
                 
                 if (newChild["id"] as? String == self.userId) {
                     self.addToUsers(newChild)
@@ -103,7 +128,7 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
                 
             })
             
-            self.sessionRef.observe(.childRemoved, with: { (snapshot) in
+            Store.sessionRef.observe(.childRemoved, with: { (snapshot) in
                 let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 
                 Store.users = Store.users.filter { $0["id"] as? String != newChild["id"] as? String }
@@ -143,7 +168,12 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     @IBAction func launchSearch(_ sender: Any) {
-        self.sessionRef.child("started").setValue(true)
+        self.present(confirmAlert, animated: true, completion: nil)
+    }
+    
+    func startSearch() {
+        Store.sessionRef.child("started").setValue(true)
+        
         
         if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
             
@@ -156,8 +186,8 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
             })
         }
     }
-    
 }
+
 
 extension CreateSessionViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
