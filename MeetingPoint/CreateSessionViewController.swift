@@ -35,7 +35,7 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
         
         userId = generateShortCode(length: 10)
         
-        requestAlert = UIAlertController(title: "Demande d'ajout", message: "héhé souhaite rejoindre la session.", preferredStyle: .alert)
+        requestAlert = UIAlertController(title: "Demande d'ajout", message: "", preferredStyle: .alert)
         
         requestAlert.addAction(UIAlertAction(title: "Ajouter", style: .default, handler: {(action:UIAlertAction) in
             self.newJoinerRef.child("accepted").setValue(true)
@@ -89,6 +89,8 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
                 } else {
                     self.newJoinerRef = snapshot.ref
                     self.newJoiner = newChild
+                    let alertMessage = "\(newChild["name"] as? String ?? "Un utilisateur") souhaite rejoindre la session."
+                    self.requestAlert.message = alertMessage
                     self.present(self.requestAlert, animated: true, completion: nil)
                 }
                 

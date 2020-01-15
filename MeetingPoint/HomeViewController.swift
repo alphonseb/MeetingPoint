@@ -7,11 +7,19 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class HomeViewController: UIViewController {
 
     var alert: UIAlertController!
     var userName: String!
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        Store.users = []
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
