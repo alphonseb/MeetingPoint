@@ -41,9 +41,14 @@ class CreateStepOneViewController: UIViewController {
         if (nameField.text == "") {
             self.present(emptyAlert, animated: true, completion: nil)
         } else {
+            Store.event = Event()
+            Store.event.description = self.descriptionField.text ?? "Pas de description :("
+            let timestamp = self.dateField.date.timeIntervalSince1970
+            Store.event.date = timestamp
+            Store.event.organizerName = self.nameField.text
+            
             if let createView = self.storyboard?.instantiateViewController(withIdentifier: "createSession") as? CreateSessionViewController {
                 
-                createView.date = self.dateField.date
                 createView.userName = self.nameField.text
                 self.navigationController?.pushViewController(createView, animated: true)
             }

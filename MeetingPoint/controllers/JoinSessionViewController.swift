@@ -21,7 +21,6 @@ class JoinSessionViewController: UIViewController {
     
     var ref: DatabaseReference!
     var coordinates: CLLocationCoordinate2D!
-    var sessionRef: DatabaseReference!
     var userRef: DatabaseReference!
     var userId: String!
     var kickAlert: UIAlertController!
@@ -100,9 +99,9 @@ class JoinSessionViewController: UIViewController {
             joinButton.isHidden = true
             loader.startAnimating()
             if let session = SessionField.text {
-                self.sessionRef = ref.child(session)
+                Store.sessionRef = ref.child(session)
                 
-                self.sessionRef.observeSingleEvent(of: .value) { (snapshot) in
+                Store.sessionRef.observeSingleEvent(of: .value) { (snapshot) in
                     if (!snapshot.exists()) {
                         self.present(self.noSessionAlert, animated: true, completion: nil)
                     } else {
@@ -114,20 +113,20 @@ class JoinSessionViewController: UIViewController {
     }
     
     func addUser (_ session: String) {
-        self.userRef = self.sessionRef.childByAutoId()
+        self.userRef = Store.sessionRef.child("users").childByAutoId()
         
         if let name = NameField.text {
             self.userRef.setValue([
                 "name": name,
                 "id": self.userId!,
-                "coordinates": [
+                "coordinate": [
                     "lat": self.coordinates.latitude,
                     "lon": self.coordinates.longitude
                 ]
                 ])
         }
         
-        sessionRef.observe(.childRemoved) { (snapshot) in
+        Store.sessionRef.child("users").observe(.childRemoved) { (snapshot) in
             let removedUser = snapshot.value as? [String:AnyObject] ?? [:]
             if (removedUser["id"] as? String == self.userId) {
                 self.present(self.kickAlert, animated: true, completion: nil)
@@ -141,7 +140,6 @@ class JoinSessionViewController: UIViewController {
                     if (accepted) {
                         if let joinStepTwoView = self.storyboard?.instantiateViewController(withIdentifier: "joinStepTwo") as? JoinStepTwoViewController {
                             
-                            joinStepTwoView.sessionRef = self.sessionRef
                             joinStepTwoView.sessionCode = session
                             self.navigationController?.pushViewController(joinStepTwoView, animated: true)
                         }

@@ -366,13 +366,24 @@
                                     <outlet property="delegate" destination="qjq-t0-ZrA" id="qAp-H3-hfT"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGq-tt-HAm" customClass="PaddingLabel" customModule="PaddingLabel">
+                                <rect key="frame" x="20" y="98" width="374" height="26.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cqE-gC-vAK" firstAttribute="height" secondItem="29e-fK-CHh" secondAttribute="height" multiplier="0.6" id="1Ja-qi-nuF"/>
+                            <constraint firstItem="uGq-tt-HAm" firstAttribute="centerX" secondItem="29e-fK-CHh" secondAttribute="centerX" id="4qa-vG-8R4"/>
+                            <constraint firstItem="eZP-DY-RQ4" firstAttribute="trailing" secondItem="uGq-tt-HAm" secondAttribute="trailing" constant="20" id="9Hl-gg-ZCb"/>
                             <constraint firstItem="Dwy-AL-K1F" firstAttribute="width" secondItem="29e-fK-CHh" secondAttribute="width" id="FY2-91-CkN"/>
                             <constraint firstItem="cqE-gC-vAK" firstAttribute="width" secondItem="29e-fK-CHh" secondAttribute="width" id="OOZ-Mm-aNQ"/>
                             <constraint firstItem="cqE-gC-vAK" firstAttribute="top" secondItem="eZP-DY-RQ4" secondAttribute="top" id="TO5-cZ-i2X"/>
+                            <constraint firstItem="uGq-tt-HAm" firstAttribute="leading" secondItem="eZP-DY-RQ4" secondAttribute="leading" constant="20" id="WRa-Xx-dgw"/>
+                            <constraint firstItem="uGq-tt-HAm" firstAttribute="top" secondItem="eZP-DY-RQ4" secondAttribute="top" constant="54" id="iZ2-9q-hv1"/>
                             <constraint firstItem="Dwy-AL-K1F" firstAttribute="top" secondItem="cqE-gC-vAK" secondAttribute="bottom" id="jMo-0R-aKC"/>
                             <constraint firstItem="cqE-gC-vAK" firstAttribute="centerX" secondItem="29e-fK-CHh" secondAttribute="centerX" id="l3w-3k-HxQ"/>
                             <constraint firstItem="Dwy-AL-K1F" firstAttribute="height" secondItem="29e-fK-CHh" secondAttribute="height" multiplier="0.4" id="sv0-E6-LyI"/>
@@ -382,6 +393,7 @@
                     </view>
                     <connections>
                         <outlet property="mapView" destination="cqE-gC-vAK" id="ZOE-K5-ojf"/>
+                        <outlet property="stationLabel" destination="uGq-tt-HAm" id="r4b-7B-0Di"/>
                         <outlet property="tableView" destination="Dwy-AL-K1F" id="zNS-La-PUF"/>
                     </connections>
                 </viewController>
@@ -409,6 +421,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sH5-2B-i1K">
                                 <rect key="frame" x="158.5" y="801" width="97" height="30"/>
                                 <state key="normal" title="Choisir ce lieu"/>
+                                <connections>
+                                    <action selector="choosePlace:" destination="aOh-bZ-tD8" eventType="touchUpInside" id="rcJ-Hz-rBe"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TXw-gu-gCU">
                                 <rect key="frame" x="15" y="384" width="379" height="358"/>
@@ -495,6 +510,7 @@
                         <viewLayoutGuide key="safeArea" id="6FW-72-DE5"/>
                     </view>
                     <connections>
+                        <outlet property="saveButton" destination="sH5-2B-i1K" id="5fN-rn-eWc"/>
                         <outlet property="titleLabel" destination="XSA-VZ-WO5" id="PN6-RC-6m7"/>
                     </connections>
                 </viewController>

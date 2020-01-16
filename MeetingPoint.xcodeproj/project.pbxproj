@@ -10,6 +10,9 @@
 		743AAF4256D2035CD35211FA /* Pods_MeetingPoint.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60DBA73155D364378A6712D9 /* Pods_MeetingPoint.framework */; };
 		801E664023CF692E0022942C /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E663F23CF692E0022942C /* InfoCell.swift */; };
 		801E664223CF74830022942C /* LoaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664123CF74830022942C /* LoaderViewController.swift */; };
+		801E664423CF87C30022942C /* MeetingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664323CF87C30022942C /* MeetingPoint.swift */; };
+		801E664623CFAF680022942C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664523CFAF680022942C /* Event.swift */; };
+		801E664823CFC4BA0022942C /* ChoiceListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664723CFC4BA0022942C /* ChoiceListener.swift */; };
 		80B5256323CC882400639888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5256223CC882400639888 /* AppDelegate.swift */; };
 		80B5256523CC882400639888 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5256423CC882400639888 /* CreateSessionViewController.swift */; };
 		80B5256823CC882400639888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80B5256623CC882400639888 /* Main.storyboard */; };
@@ -36,6 +39,9 @@
 		60DBA73155D364378A6712D9 /* Pods_MeetingPoint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MeetingPoint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		801E663F23CF692E0022942C /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		801E664123CF74830022942C /* LoaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderViewController.swift; sourceTree = "<group>"; };
+		801E664323CF87C30022942C /* MeetingPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingPoint.swift; sourceTree = "<group>"; };
+		801E664523CFAF680022942C /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		801E664723CFC4BA0022942C /* ChoiceListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceListener.swift; sourceTree = "<group>"; };
 		80B5255F23CC882400639888 /* MeetingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeetingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B5256223CC882400639888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80B5256423CC882400639888 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +120,7 @@
 				80B5256E23CC882500639888 /* Info.plist */,
 				80B5257423CC8A8500639888 /* GoogleService-Info.plist */,
 				80B5257C23CDDE1A00639888 /* Store.swift */,
+				801E664723CFC4BA0022942C /* ChoiceListener.swift */,
 			);
 			path = MeetingPoint;
 			sourceTree = "<group>";
@@ -132,6 +139,8 @@
 				80B5258623CF007700639888 /* LocationResult.swift */,
 				80B5258E23CF2FCD00639888 /* NearbyPoint.swift */,
 				80B5259223CF4F5100639888 /* PlaceAnnotation.swift */,
+				801E664323CF87C30022942C /* MeetingPoint.swift */,
+				801E664523CFAF680022942C /* Event.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -290,12 +299,15 @@
 				80B5257B23CDCF5900639888 /* HomeViewController.swift in Sources */,
 				80B5258323CE3ED400639888 /* PointsService.swift in Sources */,
 				80B5258F23CF2FCD00639888 /* NearbyPoint.swift in Sources */,
+				801E664823CFC4BA0022942C /* ChoiceListener.swift in Sources */,
 				80B5257F23CDF5CF00639888 /* CreateStepOneViewController.swift in Sources */,
+				801E664623CFAF680022942C /* Event.swift in Sources */,
 				80B5259723CF629300639888 /* DescriptionCell.swift in Sources */,
 				80B5259123CF335400639888 /* NearbyPointCell.swift in Sources */,
 				80B5256523CC882400639888 /* CreateSessionViewController.swift in Sources */,
 				80B5259323CF4F5100639888 /* PlaceAnnotation.swift in Sources */,
 				80B5258B23CF23C700639888 /* ResultMapViewController.swift in Sources */,
+				801E664423CF87C30022942C /* MeetingPoint.swift in Sources */,
 				80B5257923CCCE0B00639888 /* JoinSessionViewController.swift in Sources */,
 				80B5257D23CDDE1A00639888 /* Store.swift in Sources */,
 				80B5256323CC882400639888 /* AppDelegate.swift in Sources */,

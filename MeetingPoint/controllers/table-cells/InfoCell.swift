@@ -11,9 +11,9 @@ import UIKit
 class InfoCell: UITableViewCell {
     @IBOutlet weak var infoLabel: UILabel!
 
-    var info: String! {
+    var info: AnyObject! {
         didSet {
-            infoLabel.text = self.info
+            infoLabel.text = "\(self.info)"
         }
     }
     
