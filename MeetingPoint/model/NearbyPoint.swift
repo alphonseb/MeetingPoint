@@ -15,11 +15,13 @@ class NearbyPoint {
     var coordinate: CLLocationCoordinate2D!
     var description: String!
     var infos: [String]!
+    var adress: String!
+    var priceLevel: Int!
+    var rating: Double!
     
-    init(name: String, coordinate: CLLocationCoordinate2D, description: String, infos: [String]) {
+    init(name: String, coordinate: CLLocationCoordinate2D, description: String) {
         self.coordinate = coordinate
         self.name = name
         self.description = description
-        self.infos = infos
     }
 }

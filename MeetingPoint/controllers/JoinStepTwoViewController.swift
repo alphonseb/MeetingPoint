@@ -24,7 +24,7 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
         // Demander les permissions
         myLabel.text = sessionCode
         
-        dbHandle = Store.sessionRef.observe(.childAdded, with: { (snapshot) in
+        dbHandle = Store.sessionRef.child("users").observe(.childAdded, with: { (snapshot) in
             let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 self.addToUsers(newChild)
             if (!(newChild["isOrganizer"] as? Bool ?? false)) {

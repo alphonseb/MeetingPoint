@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import CoreLocation
 
 class MeetingPoint {
     var name: String!
-    var time: Double!
+    var times = [String:Double]()
     var lines: [String]!
+    var coordinate: CLLocationCoordinate2D!
 }

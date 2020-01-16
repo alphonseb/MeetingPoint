@@ -9,10 +9,12 @@
 import UIKit
 import MapKit
 import CoreLocation
+import PaddingLabel
 
 class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var stationLabel: PaddingLabel!
     
     let reuseIdentifier = "location_id"
     var location: CLLocation!
@@ -20,9 +22,12 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
     var stationAnnotation: MKPointAnnotation!
     var nearbyPointsAnnotations = [MKAnnotation]()
     var choiceAlert: UIAlertController!
+    var onlyTitle = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stationLabel.text = Store.meetingPoint.name
         
         if !Store.isOrganizer {
             choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait !", preferredStyle: .alert)
@@ -40,25 +45,30 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
         
         self.tableView.separatorStyle = .none
         
-        location = CLLocation(latitude: 48.8615745, longitude: 2.3470353)
-        let newLocation = CLLocation(latitude: 48.859, longitude: 2.34)
-        let pointInfos = [
-            "test", "haha", "lol"
-        ]
-        let nearbyPoint = NearbyPoint(name: "Nom test", coordinate: newLocation.coordinate, description: "HAHAHAHAH", infos: pointInfos)
-
-        nearbyResults.append(nearbyPoint)
+//        location = CLLocation(latitude: 48.8615745, longitude: 2.3470353)
+//        let newLocation = CLLocation(latitude: 48.859, longitude: 2.34)
+//        let pointInfos = [
+//            "test", "haha", "lol"
+//        ]
+//        let nearbyPoint = NearbyPoint(name: "Nom test", coordinate: newLocation.coordinate, description: "HAHAHAHAH", infos: pointInfos)
+//
+//        nearbyResults.append(nearbyPoint)
         
-        let region = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpan(latitudeDelta: 1.0/111.0, longitudeDelta: 1.0/111.0))
+        let region = MKCoordinateRegion(center: Store.meetingPoint.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5/111.0, longitudeDelta: 0.5/111.0))
         
         mapView.setRegion(region, animated: true)
         stationAnnotation = MKPointAnnotation()
-        stationAnnotation.title = "lol"
-        stationAnnotation.coordinate = location.coordinate
+        stationAnnotation.title = "Point de RDV"
+        stationAnnotation.coordinate = Store.meetingPoint.coordinate
         mapView.addAnnotation(stationAnnotation)
         
-        let secondAnnotation = PlaceAnnotation(coordinate: nearbyPoint.coordinate, nearbyPoint: nearbyPoint)
-        nearbyPointsAnnotations.append(secondAnnotation)
+        for place in Store.nearbyPoints {
+            let annotation = PlaceAnnotation(coordinate: place.coordinate, nearbyPoint: place)
+            annotation.title = place.name
+            nearbyPointsAnnotations.append(annotation)
+        }
+        
+        
         mapView.addAnnotations(nearbyPointsAnnotations)
         mapView.register(MKAnnotationView.classForCoder(), forAnnotationViewWithReuseIdentifier: reuseIdentifier)
 
@@ -70,7 +80,11 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
         
                 let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier, for: annotation)
         
-                annotationView.image = UIImage(named: "pokeball")
+        if (annotation as? MKPointAnnotation == stationAnnotation) {
+            annotationView.image = UIImage(named: "metro")
+        } else {
+            annotationView.image = UIImage(named: "bar")
+        }
                 annotationView.canShowCallout = true
         
                 return annotationView
@@ -80,35 +94,44 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
         if (view.annotation as? MKPointAnnotation == stationAnnotation) {
             return
         }
-        let placeAnnotation = view.annotation as? PlaceAnnotation
-        if let detailView = self.storyboard?.instantiateViewController(withIdentifier: "placeDetail") as? PlaceDetailViewController {
-            
-            print("hellllo")
-            
-            detailView.point = placeAnnotation?.point
-            self.navigationController?.pushViewController(detailView, animated: true)
+        if (!self.onlyTitle) {
+            let placeAnnotation = view.annotation as? PlaceAnnotation
+            if let detailView = self.storyboard?.instantiateViewController(withIdentifier: "placeDetail") as? PlaceDetailViewController {
+                
+                detailView.point = placeAnnotation?.point
+                self.navigationController?.pushViewController(detailView, animated: true)
+            }
+        } else {
+            self.onlyTitle = false
+            let seconds = 1.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                // Put your code which should be executed with a delay here
+                self.mapView.deselectAnnotation(view.annotation, animated: true)
+            }
+
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nearbyResults.count
+        return Store.nearbyPoints.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "nearbyPointCell", for: indexPath) as! NearbyPointCell
         
-        cell.nearbyPoint = self.nearbyResults[indexPath.row]
+        cell.nearbyPoint = Store.nearbyPoints[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let coordinate = nearbyResults[indexPath.row].coordinate {
-            let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 1.0/111.0, longitudeDelta: 1.0/111.0))
+        if let coordinate = Store.nearbyPoints[indexPath.row].coordinate {
+            let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5/111.0, longitudeDelta: 0.5/111.0))
             
             mapView.setRegion(region, animated: true)
-        }
+            self.onlyTitle = true
+            mapView.selectAnnotation(nearbyPointsAnnotations[indexPath.row], animated: true)
+            }
         
     }
     

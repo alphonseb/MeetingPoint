@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import CoreLocation
+import Alamofire
 
 class CreateSessionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
    
@@ -88,11 +89,11 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
             myLabel.text = shortCode
             Store.sessionRef = ref.child(shortCode)
             
-            Store.sessionRef.childByAutoId().setValue([
+            Store.sessionRef.child("users").childByAutoId().setValue([
                 "name": userName!,
                 "isOrganizer": true,
                 "id": userId!,
-                "coordinates": [
+                "coordinate": [
                     "lat": coordinate.latitude,
                     "lon": coordinate.longitude
                 ]
@@ -109,12 +110,8 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
             //            let name = snapshot.value as? String
             //            self.myLabel.text = name
             //        }
-            dbHandle = Store.sessionRef.observe(.childAdded, with: { (snapshot) in
+            dbHandle = Store.sessionRef.child("users").observe(.childAdded, with: { (snapshot) in
                 let newChild = snapshot.value as? [String : AnyObject] ?? [:]
-                
-                if (snapshot.key == "event") {
-                    return
-                }
                 
                 if (newChild["id"] as? String == self.userId) {
                     self.addToUsers(newChild)
@@ -128,7 +125,7 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
                 
             })
             
-            Store.sessionRef.observe(.childRemoved, with: { (snapshot) in
+            Store.sessionRef.child("users").observe(.childRemoved, with: { (snapshot) in
                 let newChild = snapshot.value as? [String : AnyObject] ?? [:]
                 
                 Store.users = Store.users.filter { $0["id"] as? String != newChild["id"] as? String }
@@ -174,14 +171,18 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
     func startSearch() {
         Store.sessionRef.child("started").setValue(true)
         
+        AF.request("https://app.alphonsebouy.fr/meeteasy/index.php", method: .post, parameters: ["users": Store.users, "sessionID": Store.sessionRef.key!], encoding: JSONEncoding.default)
+            .responseString { response in
+//                print(response)
+        }
         
         if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
             
             self.navigationController?.present(loaderView, animated: true, completion: {
                 if let mapView = self.storyboard?.instantiateViewController(withIdentifier: "resultMap") as? ResultMapViewController {
-                    
+
                     self.navigationController?.pushViewController(mapView, animated: true)
-                    
+
                 }
             })
         }

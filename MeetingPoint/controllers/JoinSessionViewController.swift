@@ -113,20 +113,20 @@ class JoinSessionViewController: UIViewController {
     }
     
     func addUser (_ session: String) {
-        self.userRef = Store.sessionRef.childByAutoId()
+        self.userRef = Store.sessionRef.child("users").childByAutoId()
         
         if let name = NameField.text {
             self.userRef.setValue([
                 "name": name,
                 "id": self.userId!,
-                "coordinates": [
+                "coordinate": [
                     "lat": self.coordinates.latitude,
                     "lon": self.coordinates.longitude
                 ]
                 ])
         }
         
-        Store.sessionRef.observe(.childRemoved) { (snapshot) in
+        Store.sessionRef.child("users").observe(.childRemoved) { (snapshot) in
             let removedUser = snapshot.value as? [String:AnyObject] ?? [:]
             if (removedUser["id"] as? String == self.userId) {
                 self.present(self.kickAlert, animated: true, completion: nil)
