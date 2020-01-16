@@ -45,8 +45,8 @@ class LoaderViewController: UIViewController {
                             
                             // Places
                             let resultPlaces = result["places"] as? [String:AnyObject] ?? [:]
-                            for place in resultPlaces {
-                                let point = place.value as? [String:AnyObject] ?? [:]
+                            for (key, place) in resultPlaces {
+                                let point = place as? [String:AnyObject] ?? [:]
                                 let pointCoordinates = point["coordinate"] as? [String:AnyObject] ?? [:]
                                 let location = CLLocation(latitude: (pointCoordinates["lat"] as? CLLocationDegrees)!, longitude: (pointCoordinates["lon"] as? CLLocationDegrees)!)
                                 let nearbyPoint = NearbyPoint(name: (point["name"] as? String)!, coordinate: location.coordinate, description: "Très joli lieu, nous le conseillons à tous.")
@@ -54,6 +54,7 @@ class LoaderViewController: UIViewController {
                                 nearbyPoint.adress = point["adress"] as? String
                                 nearbyPoint.priceLevel = point["price_level"] as? Int
                                 nearbyPoint.rating = point["rating"] as? Double
+                                nearbyPoint.id = key
                                 
                                 Store.nearbyPoints.append(nearbyPoint)
                             }

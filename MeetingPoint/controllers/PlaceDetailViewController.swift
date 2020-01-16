@@ -22,7 +22,7 @@ class PlaceDetailViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         if !Store.isOrganizer {
-            choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait !", preferredStyle: .alert)
+            choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait : \(Store.event.point.name) !", preferredStyle: .alert)
             
             choiceAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                 // Send to completion View
@@ -128,7 +128,7 @@ class PlaceDetailViewController: UIViewController, UITableViewDelegate, UITableV
 //        }
 
         Store.sessionRef.child("event/choosenPoint").setValue(Store.nearbyPoints.firstIndex(where: { (point) -> Bool in
-            return (point.coordinate.latitude == self.point.coordinate.latitude && point.coordinate.longitude == self.point.coordinate.latitude)
+            return (point.id == self.point.id)
         }))
         // Core data save
         // Send to completion view

@@ -30,7 +30,7 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
         stationLabel.text = Store.meetingPoint.name
         
         if !Store.isOrganizer {
-            choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait !", preferredStyle: .alert)
+            choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait : \(Store.event.point.name) !", preferredStyle: .alert)
             
             choiceAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                 // Send to completion View

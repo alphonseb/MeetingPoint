@@ -143,6 +143,7 @@ class JoinSessionViewController: UIViewController {
                             Store.event = Event()
                             
                             joinStepTwoView.sessionCode = session
+                            Store.event = Event()
                             self.navigationController?.pushViewController(joinStepTwoView, animated: true)
                         }
                     }

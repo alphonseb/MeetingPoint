@@ -18,6 +18,7 @@ class NearbyPoint {
     var adress: String!
     var priceLevel: Int!
     var rating: Double!
+    var id: String!
     
     init(name: String, coordinate: CLLocationCoordinate2D, description: String) {
         self.coordinate = coordinate
