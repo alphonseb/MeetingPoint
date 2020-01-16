@@ -13,7 +13,7 @@ class InfoCell: UITableViewCell {
 
     var info: AnyObject! {
         didSet {
-            infoLabel.text = "\(self.info)"
+            infoLabel.text = "\(self.info!)"
         }
     }
     

@@ -35,7 +35,6 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
         Store.sessionRef.child("event").observeSingleEvent(of: .value) { (snapshot) in
             if (snapshot.exists()) {
                 let sessionEvent = snapshot.value as? [String:AnyObject] ?? [:]
-                Store.event = Event()
                 Store.event.date = sessionEvent["date"] as? Double
                 Store.event.description = sessionEvent["description"] as? String
                 Store.event.organizerName = sessionEvent["organizerName"] as? String
