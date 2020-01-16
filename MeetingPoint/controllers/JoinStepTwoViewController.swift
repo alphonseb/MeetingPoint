@@ -35,7 +35,6 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
         Store.sessionRef.child("event").observeSingleEvent(of: .value) { (snapshot) in
             if (snapshot.exists()) {
                 let sessionEvent = snapshot.value as? [String:AnyObject] ?? [:]
-                Store.event = Event()
                 Store.event.date = sessionEvent["date"] as? Double
                 Store.event.description = sessionEvent["description"] as? String
                 Store.event.organizerName = sessionEvent["organizerName"] as? String
@@ -48,6 +47,7 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
                     if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
                         
                         self.navigationController?.present(loaderView, animated: true, completion: {
+                            print("completing")
                             if let mapView = self.storyboard?.instantiateViewController(withIdentifier: "resultMap") as? ResultMapViewController {
                                 
                                 self.navigationController?.pushViewController(mapView, animated: true)
