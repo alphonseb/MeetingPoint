@@ -46,7 +46,7 @@ class LoaderViewController: UIViewController {
                                 let point = place as? [String:AnyObject] ?? [:]
                                 let pointCoordinates = point["coordinate"] as? [String:AnyObject] ?? [:]
                                 let location = CLLocation(latitude: (pointCoordinates["lat"] as? CLLocationDegrees)!, longitude: (pointCoordinates["lon"] as? CLLocationDegrees)!)
-                                let nearbyPoint = NearbyPoint(name: (point["name"] as? String)!, coordinate: location.coordinate, description: "Très joli lieu, nous le conseillons à tous.")
+                                let nearbyPoint = NearbyPoint(name: (point["name"] as? String)!, coordinate: location.coordinate, description: "Ce bar à cocktail propose des boissons classiques ou originales dans un cadre soigné aux lumières tamisées.")
                                 nearbyPoint.imageUrl = URL(string: point["photo_link"] as? String ?? "")
                                 nearbyPoint.adress = point["adress"] as? String
                                 nearbyPoint.priceLevel = point["price_level"] as? Int

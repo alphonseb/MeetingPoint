@@ -15,4 +15,5 @@ struct Store {
     static var meetingPoint: MeetingPoint!
     static var nearbyPoints = [NearbyPoint]()
     static var isOrganizer = false
+    static var homeEventDisplayed = false
 }

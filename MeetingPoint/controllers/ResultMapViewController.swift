@@ -27,32 +27,39 @@ class ResultMapViewController: UIViewController, MKMapViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Résultats"
+        
         stationLabel.text = Store.meetingPoint.name
+        stationLabel.layer.cornerRadius = 6
+        stationLabel.layer.borderWidth = 1
+        stationLabel.layer.borderColor = UIColor.clear.cgColor
+        
+        stationLabel.layer.shadowColor = UIColor.black.cgColor
+        stationLabel.layer.shadowOpacity = 0.15
+        stationLabel.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
+        stationLabel.layer.shadowRadius = 6
         
         if !Store.isOrganizer {
-            choiceAlert = UIAlertController(title: "Le choix est fait", message: "\(Store.event.organizerName) a trouvé l'endroit parfait : \(Store.event.point.name) !", preferredStyle: .alert)
+            choiceAlert = UIAlertController(title:"Le choix est fait", message: "", preferredStyle: .alert)
             
             choiceAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
                 // Send to completion View
+                if let endView = self.storyboard?.instantiateViewController(withIdentifier: "endScreen") as? EndScreenViewController {
+                    
+                    self.navigationController?.pushViewController(endView, animated: true)
+                    
+                }
             }))
             let choiceListener = ChoiceListener()
             choiceListener.listen { (finished) in
                 if (finished) {
+                self.choiceAlert.message = "\(Store.event.organizerName ?? "Machin") a trouvé l'endroit parfait : \(Store.event.point.name ?? "Bidule") !"
                     self.present(self.choiceAlert, animated: true, completion: nil)
                 }
             }
         }
         
         self.tableView.separatorStyle = .none
-        
-//        location = CLLocation(latitude: 48.8615745, longitude: 2.3470353)
-//        let newLocation = CLLocation(latitude: 48.859, longitude: 2.34)
-//        let pointInfos = [
-//            "test", "haha", "lol"
-//        ]
-//        let nearbyPoint = NearbyPoint(name: "Nom test", coordinate: newLocation.coordinate, description: "HAHAHAHAH", infos: pointInfos)
-//
-//        nearbyResults.append(nearbyPoint)
         
         let region = MKCoordinateRegion(center: Store.meetingPoint.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5/111.0, longitudeDelta: 0.5/111.0))
         

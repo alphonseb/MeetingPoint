@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var addButton: UIButton!
     var alert: UIAlertController!
     var userName: String!
     
@@ -24,6 +25,15 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addButton.layer.shadowColor = UIColor.black.cgColor
+        addButton.layer.shadowOpacity = 0.15
+        addButton.layer.shadowOffset = CGSize(width: 0.0, height: -3.0)
+        addButton.layer.shadowRadius = 6
+        
+        addButton.layer.cornerRadius = 6
+        addButton.layer.borderWidth = 1
+        addButton.layer.borderColor = UIColor.clear.cgColor
         
         //1. Create the alert controller.
         alert = UIAlertController(title: "Ajouter un événement", message: "Créez ou rejoignez une session", preferredStyle: .actionSheet)

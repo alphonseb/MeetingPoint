@@ -13,6 +13,7 @@
 		801E664423CF87C30022942C /* MeetingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664323CF87C30022942C /* MeetingPoint.swift */; };
 		801E664623CFAF680022942C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664523CFAF680022942C /* Event.swift */; };
 		801E664823CFC4BA0022942C /* ChoiceListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664723CFC4BA0022942C /* ChoiceListener.swift */; };
+		801E664A23D148E30022942C /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664923D148E30022942C /* EndScreenViewController.swift */; };
 		80B5256323CC882400639888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5256223CC882400639888 /* AppDelegate.swift */; };
 		80B5256523CC882400639888 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5256423CC882400639888 /* CreateSessionViewController.swift */; };
 		80B5256823CC882400639888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80B5256623CC882400639888 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		801E664323CF87C30022942C /* MeetingPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingPoint.swift; sourceTree = "<group>"; };
 		801E664523CFAF680022942C /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		801E664723CFC4BA0022942C /* ChoiceListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceListener.swift; sourceTree = "<group>"; };
+		801E664923D148E30022942C /* EndScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		80B5255F23CC882400639888 /* MeetingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeetingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B5256223CC882400639888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80B5256423CC882400639888 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				80B5258A23CF23C700639888 /* ResultMapViewController.swift */,
 				80B5259423CF604C00639888 /* PlaceDetailViewController.swift */,
 				801E664123CF74830022942C /* LoaderViewController.swift */,
+				801E664923D148E30022942C /* EndScreenViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				801E664023CF692E0022942C /* InfoCell.swift in Sources */,
 				801E664223CF74830022942C /* LoaderViewController.swift in Sources */,
 				80B5257723CCB6C900639888 /* UserCell.swift in Sources */,
+				801E664A23D148E30022942C /* EndScreenViewController.swift in Sources */,
 				80B5259523CF604C00639888 /* PlaceDetailViewController.swift in Sources */,
 				80B5258723CF007700639888 /* LocationResult.swift in Sources */,
 				80B5258123CE1DF500639888 /* JoinStepTwoViewController.swift in Sources */,
