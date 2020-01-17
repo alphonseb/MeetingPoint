@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var event2Image: UIImageView!
     @IBOutlet weak var addButton: UIButton!
     var alert: UIAlertController!
     var userName: String!
@@ -21,10 +22,15 @@ class HomeViewController: UIViewController {
         
         Store.users = []
         Store.isOrganizer = false
+        
+        if (Store.homeEventDisplayed) {
+            event2Image.isHidden = false
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        event2Image.isHidden = true
         
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.15
