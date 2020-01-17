@@ -140,6 +140,8 @@ class JoinSessionViewController: UIViewController {
                     if (accepted) {
                         if let joinStepTwoView = self.storyboard?.instantiateViewController(withIdentifier: "joinStepTwo") as? JoinStepTwoViewController {
                             
+                            Store.event = Event()
+                            
                             joinStepTwoView.sessionCode = session
                             Store.event = Event()
                             self.navigationController?.pushViewController(joinStepTwoView, animated: true)

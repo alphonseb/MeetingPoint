@@ -47,6 +47,7 @@ class JoinStepTwoViewController: UIViewController, UITableViewDelegate, UITableV
                     if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
                         
                         self.navigationController?.present(loaderView, animated: true, completion: {
+                            print("completing")
                             if let mapView = self.storyboard?.instantiateViewController(withIdentifier: "resultMap") as? ResultMapViewController {
                                 
                                 self.navigationController?.pushViewController(mapView, animated: true)

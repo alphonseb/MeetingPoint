@@ -18,6 +18,8 @@ class LoaderViewController: UIViewController {
         super.viewDidLoad()
         ref = Database.database().reference()
         
+        print("i am here")
+        
         Store.sessionRef.child("result/isFull").observe(.value) { (snapshot) in
             if (snapshot.exists()) {
                 let isFull = snapshot.value as? Bool ?? false
@@ -31,6 +33,7 @@ class LoaderViewController: UIViewController {
                             let resultMeetingPoint = result["point"] as? [String:AnyObject] ?? [:]
                             Store.meetingPoint = MeetingPoint()
                             Store.meetingPoint.name = resultMeetingPoint["name"] as? String
+                            print(Store.meetingPoint.name)
                             let durations = resultMeetingPoint["durations"] as? [String:AnyObject] ?? [:]
                             for (key, duration) in durations {
                                 Store.meetingPoint.times[key] = duration as? Double ?? 0
