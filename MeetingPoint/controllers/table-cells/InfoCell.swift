@@ -10,10 +10,16 @@ import UIKit
 
 class InfoCell: UITableViewCell {
     @IBOutlet weak var infoLabel: UILabel!
-
+    @IBOutlet weak var pictoView: UIImageView!
+    
     var info: AnyObject! {
         didSet {
             infoLabel.text = "\(self.info!)"
+        }
+    }
+    var picto: UIImage! {
+        didSet {
+            pictoView.image = self.picto
         }
     }
     

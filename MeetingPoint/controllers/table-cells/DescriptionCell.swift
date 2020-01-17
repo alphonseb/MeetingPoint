@@ -13,7 +13,9 @@ class DescriptionCell: UITableViewCell {
     
     var descriptionText: String! {
         didSet {
-            descriptionLabel.text = self.descriptionText
+            
+            descriptionLabel.text = self.descriptionText!
+            print(descriptionLabel.text)
         }
     }
     
