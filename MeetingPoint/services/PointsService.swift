@@ -18,7 +18,7 @@ class PointsService {
         AF.request("https://app.alphonsebouy.fr/meeteasy", method: .post, parameters: ["lol": "haha"], encoder: JSONParameterEncoder.default).response { (response) in
             let json = JSON(response.data)
             var result = LocationResult()
-            print(json["haha"])
+            
             
             completionHandler(result)
         }

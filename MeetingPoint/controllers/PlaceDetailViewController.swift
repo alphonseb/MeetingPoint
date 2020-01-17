@@ -101,7 +101,7 @@ class PlaceDetailViewController: UIViewController, UITableViewDelegate, UITableV
             "content": point.description as AnyObject
         ])
         
-        confirmAlert = UIAlertController(title: "Valider ce lieu", message: "Valider ce lieu pour votre évènemnt ?", preferredStyle: .alert)
+        confirmAlert = UIAlertController(title: "Valider ce lieu", message: "Valider ce lieu pour votre évènement ?", preferredStyle: .alert)
         
         confirmAlert.addAction(UIAlertAction(title: "Valider", style: .default, handler: {(action:UIAlertAction) in
             // Enregistrer event

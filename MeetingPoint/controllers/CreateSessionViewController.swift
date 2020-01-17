@@ -173,7 +173,6 @@ class CreateSessionViewController: UIViewController, UITableViewDelegate, UITabl
         
         AF.request("https://app.alphonsebouy.fr/meeteasy/index.php", method: .post, parameters: ["users": Store.users, "sessionID": Store.sessionRef.key!], encoding: JSONEncoding.default)
             .responseString { response in
-//                print(response)
         }
         
         if let loaderView = self.storyboard?.instantiateViewController(withIdentifier: "loaderView") as? LoaderViewController {
@@ -203,8 +202,7 @@ extension CreateSessionViewController: CLLocationManagerDelegate {
             let coordinate = location.coordinate
             
             self.startSession(coordinate)
-            
-            print("latitude: \(coordinate.latitude), longitude: \(coordinate.longitude)")
+        
         }
     }
     

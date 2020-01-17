@@ -18,7 +18,6 @@ class LoaderViewController: UIViewController {
         super.viewDidLoad()
         ref = Database.database().reference()
         
-        print("i am here")
         
         Store.sessionRef.child("result/isFull").observe(.value) { (snapshot) in
             if (snapshot.exists()) {
@@ -33,7 +32,7 @@ class LoaderViewController: UIViewController {
                             let resultMeetingPoint = result["point"] as? [String:AnyObject] ?? [:]
                             Store.meetingPoint = MeetingPoint()
                             Store.meetingPoint.name = resultMeetingPoint["name"] as? String
-                            print(Store.meetingPoint.name)
+                            
                             let durations = resultMeetingPoint["durations"] as? [String:AnyObject] ?? [:]
                             for (key, duration) in durations {
                                 Store.meetingPoint.times[key] = duration as? Double ?? 0
@@ -66,16 +65,6 @@ class LoaderViewController: UIViewController {
             }
         }
         
-        
-        // Listen to DB Changes
-//        let seconds = 2.0
-//        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-//            // Put your code which should be executed with a delay here
-//            print("hahaha")
-//            self.dismiss(animated: true)
-//        }
-
-        // Do any additional setup after loading the view.
     }
     
 

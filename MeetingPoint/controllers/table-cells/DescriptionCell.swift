@@ -15,7 +15,7 @@ class DescriptionCell: UITableViewCell {
         didSet {
             
             descriptionLabel.text = self.descriptionText!
-            print(descriptionLabel.text)
+            
         }
     }
     
