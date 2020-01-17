@@ -30,6 +30,14 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (!Store.tutorialComplete) {
+            if let tutorialView = self.storyboard?.instantiateViewController(withIdentifier: "tutorial") as? UIViewController {
+                
+                self.navigationController?.pushViewController(tutorialView, animated: true)
+                
+            }}
+        
         event2Image.isHidden = true
         
         addButton.layer.shadowColor = UIColor.black.cgColor

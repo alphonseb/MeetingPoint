@@ -14,6 +14,7 @@
 		801E664623CFAF680022942C /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664523CFAF680022942C /* Event.swift */; };
 		801E664823CFC4BA0022942C /* ChoiceListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664723CFC4BA0022942C /* ChoiceListener.swift */; };
 		801E664A23D148E30022942C /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664923D148E30022942C /* EndScreenViewController.swift */; };
+		801E664C23D15CCC0022942C /* EndTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801E664B23D15CCC0022942C /* EndTutorialViewController.swift */; };
 		80B5256323CC882400639888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5256223CC882400639888 /* AppDelegate.swift */; };
 		80B5256523CC882400639888 /* CreateSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5256423CC882400639888 /* CreateSessionViewController.swift */; };
 		80B5256823CC882400639888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 80B5256623CC882400639888 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		801E664523CFAF680022942C /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		801E664723CFC4BA0022942C /* ChoiceListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceListener.swift; sourceTree = "<group>"; };
 		801E664923D148E30022942C /* EndScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
+		801E664B23D15CCC0022942C /* EndTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndTutorialViewController.swift; sourceTree = "<group>"; };
 		80B5255F23CC882400639888 /* MeetingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeetingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B5256223CC882400639888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		80B5256423CC882400639888 /* CreateSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSessionViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				80B5259423CF604C00639888 /* PlaceDetailViewController.swift */,
 				801E664123CF74830022942C /* LoaderViewController.swift */,
 				801E664923D148E30022942C /* EndScreenViewController.swift */,
+				801E664B23D15CCC0022942C /* EndTutorialViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				801E664C23D15CCC0022942C /* EndTutorialViewController.swift in Sources */,
 				80B5257B23CDCF5900639888 /* HomeViewController.swift in Sources */,
 				80B5258323CE3ED400639888 /* PointsService.swift in Sources */,
 				80B5258F23CF2FCD00639888 /* NearbyPoint.swift in Sources */,

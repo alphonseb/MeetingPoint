@@ -16,4 +16,5 @@ struct Store {
     static var nearbyPoints = [NearbyPoint]()
     static var isOrganizer = false
     static var homeEventDisplayed = false
+    static var tutorialComplete = false
 }

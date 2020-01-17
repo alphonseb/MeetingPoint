@@ -24,7 +24,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n2k-Cv-vzy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2239" y="110"/>
+            <point key="canvasLocation" x="-2920" y="-61"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="Tai-0e-7lj">
@@ -877,10 +877,10 @@
             </objects>
             <point key="canvasLocation" x="-159" y="818"/>
         </scene>
-        <!--Tuto one-->
+        <!--View Controller-->
         <scene sceneID="iCs-kQ-wSG">
             <objects>
-                <viewController title="Tuto one" id="625-Vg-Iim" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tutorial" id="625-Vg-Iim" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vrk-kK-uf9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -969,10 +969,10 @@
             </objects>
             <point key="canvasLocation" x="-3400" y="-1263"/>
         </scene>
-        <!--Tuto two-->
+        <!--View Controller-->
         <scene sceneID="4iC-Jj-7le">
             <objects>
-                <viewController title="Tuto two" id="OLt-Gh-U7E" sceneMemberID="viewController">
+                <viewController id="OLt-Gh-U7E" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t99-dn-U7M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1061,10 +1061,10 @@
             </objects>
             <point key="canvasLocation" x="-2600" y="-1263"/>
         </scene>
-        <!--Tuto three-->
+        <!--End Tutorial View Controller-->
         <scene sceneID="Ays-m8-9bP">
             <objects>
-                <viewController title="Tuto three" id="f0f-h8-uXl" sceneMemberID="viewController">
+                <viewController id="f0f-h8-uXl" customClass="EndTutorialViewController" customModule="MeetingPoint" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ASO-vq-192">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1103,7 +1103,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="RS1-eU-SPs" kind="show" id="nxi-P8-jzZ"/>
+                                    <action selector="dismiss:" destination="f0f-h8-uXl" eventType="touchUpInside" id="ecp-RG-q4h"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ellipse" translatesAutoresizingMaskIntoConstraints="NO" id="Lo5-gz-UXQ">
@@ -1157,19 +1157,13 @@
     <resources>
         <image name="ask" width="16" height="16"/>
         <image name="bike" width="240" height="221.5"/>
-<<<<<<< HEAD
         <image name="circle" width="8" height="8"/>
         <image name="ellipse" width="8" height="8"/>
-        <image name="tuto_one" width="267" height="267"/>
-        <image name="tuto_three" width="267" height="267"/>
-        <image name="tuto_two" width="267" height="267"/>
-=======
         <image name="event_01" width="347" height="142"/>
         <image name="event_02" width="347" height="142"/>
         <image name="success" width="267" height="267"/>
->>>>>>> 28ea472e15b9b1dd2819719b0e0a3f71d85aa5b6
+        <image name="tuto_one" width="267" height="267"/>
+        <image name="tuto_three" width="267" height="267"/>
+        <image name="tuto_two" width="267" height="267"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Y5v-b2-oJC"/>
-    </inferredMetricsTieBreakers>
 </document>
